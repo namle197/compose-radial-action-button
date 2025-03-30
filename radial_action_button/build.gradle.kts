@@ -1,8 +1,11 @@
+import com.vanniktech.maven.publish.SonatypeHost
+
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
-    id("maven-publish")
+    `maven-publish`
+    id("com.vanniktech.maven.publish") version "0.31.0"
 }
 
 android {
@@ -33,6 +36,41 @@ android {
         jvmTarget = "11"
     }
 }
+
+mavenPublishing {
+    pom {
+        name.set("Composable Radial Action Button")
+        description.set("A beautiful radial action button for Jetpack Compose")
+        url.set("https://github.com/namle197/compose-radial-action-button")
+        inceptionYear.set("2025")
+
+        licenses {
+            license {
+                name.set("MIT")
+                url.set("https://opensource.org/licenses/MIT")
+            }
+        }
+
+        developers {
+            developer {
+                id.set("cvowuvDV")
+                name.set("Phuong Nam")
+                email.set("phuongnam091097@gmail.com")
+            }
+        }
+
+        scm {
+            url.set("https://github.com/namle197/compose-radial-action-button")
+            connection.set("scm:git:git://github.com/namle197/compose-radial-action-button.git")
+            developerConnection.set("scm:git:ssh://git@github.com:namle197/compose-radial-action-button.git")
+        }
+    }
+
+    publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)  // Publishes to Maven Central via Sonatype
+
+    signAllPublications()  // Required for Maven Central
+}
+
 
 dependencies {
 
