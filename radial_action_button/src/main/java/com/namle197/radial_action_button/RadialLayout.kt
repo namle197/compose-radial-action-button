@@ -13,7 +13,6 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.constrainHeight
 import androidx.compose.ui.unit.constrainWidth
 import kotlin.math.cos
-import kotlin.math.max
 import kotlin.math.sin
 
 internal fun circularMeasurePolicy(
