@@ -9,11 +9,26 @@ import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
+/**
+ * A circular menu that arranges items in a radial pattern around a center content.
+ *
+ * @param modifier The modifier to be applied to the layout
+ * @param expanded Whether the menu is expanded or collapsed
+ * @param itemCount Number of menu items to display. Should match the number of items in [content]
+ * @param span Defines how items are distributed (full circle or partial arc)
+ * @param startAngle Starting angle in degrees for the first item (0° = right, 90° = bottom, 180° = left, 270° = top)
+ * @param radius Radius in pixels from center to items when expanded
+ * @param clockwise Direction of item placement around the circle
+ * @param moveUpEnabled If true, layout expands to accommodate items. If false, items overlay the center
+ * @param animation Animation style for items appearing/disappearing
+ * @param centerContent The content displayed at the center (typically a FAB)
+ * @param content Items to be arranged in a circle. Should contain exactly [itemCount] composable calls
+ */
 @Composable
 fun CircularMenu(
     modifier: Modifier = Modifier,
     expanded: Boolean,
-    menuItemCount: Int,
+    itemCount: Int,
     span: CircularSpan,
     startAngle: Float = 0f,
     radius: Float = 100f,
@@ -23,11 +38,11 @@ fun CircularMenu(
     centerContent: @Composable () -> Unit,
     content: @Composable () -> Unit,
 ) {
-    val animatedRadiusValues = remember {
-        List(menuItemCount) { Animatable(0f) }
+    val animatedRadiusValues = remember(itemCount) {
+        List(itemCount) { Animatable(0f) }
     }
 
-    LaunchedEffect(expanded) {
+    LaunchedEffect(expanded, itemCount) {
         when (animation) {
             is CircularAnimation.ExpandAnimation -> {
                 animatedRadiusValues.forEach { animatable ->
@@ -43,7 +58,7 @@ fun CircularMenu(
             is CircularAnimation.StaggerAnimation -> {
                 animatedRadiusValues.forEachIndexed { index, animatable ->
                     launch {
-                        delay(index * animation.betweenAnimation)
+                        delay(index * animation.staggerDelay)
                         animatable.animateTo(
                             if (expanded) radius else 0f,
                             animationSpec = animation.animationSpec

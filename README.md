@@ -15,17 +15,19 @@ dependencies {
 }
 ```
 ## Features
-- Circular layout.
-- Customize the number of items / style.
-- Change animations.
-- Turn on/off stabilized center
+- **Simple API**: Easy-to-use circular menu with sensible defaults
+- **Flexible Layout**: Full circle or partial arcs (half, quarter, custom angles)
+- **Multiple Animations**: Stagger or expand animations with customizable timing
+- **Performance Optimized**: Efficient layout calculations and memory usage
+- **Well Documented**: Comprehensive KDoc for all public APIs
+- **Composable-First**: Built from the ground up for Jetpack Compose
 
 ## Showcases
 <img src="docs/images/full_circle_move_up.gif"/>
 
 ```
 expanded = expanded,
-span = CircularSpan.Circle.create(),
+span = CircularSpan.Circle,
 startAngle = 180f,
 clockwise = CircularDirection.Clockwise,
 animation = CircularAnimation.StaggerAnimation(),

@@ -4,20 +4,33 @@ import androidx.compose.animation.core.AnimationSpec
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.tween
 
-sealed class CircularAnimation(
-    open val animationSpec: AnimationSpec<Float>, // Defines how animation progresses
-    open val betweenAnimation: Long // Delay between each item animation
-) {
+/**
+ * Defines animation styles for the circular menu items.
+ */
+sealed class CircularAnimation {
+    abstract val animationSpec: AnimationSpec<Float>
+    abstract val staggerDelay: Long
+
+    /**
+     * Animates items with a staggered delay between each item.
+     * @param animationSpec Controls the animation timing
+     * @param staggerDelay Delay in milliseconds between each item animation
+     */
     data class StaggerAnimation(
         override val animationSpec: AnimationSpec<Float> = tween(500),
-        override val betweenAnimation: Long = 100L // 100ms delay between each item
-    ) : CircularAnimation(animationSpec, betweenAnimation)
+        override val staggerDelay: Long = 100L
+    ) : CircularAnimation()
 
+    /**
+     * Expands all items simultaneously with a smooth easing function.
+     * @param animationSpec Controls the animation timing
+     */
     data class ExpandAnimation(
         override val animationSpec: AnimationSpec<Float> = tween(
             700,
             easing = LinearOutSlowInEasing
-        ),
-        override val betweenAnimation: Long = 50L // Smaller delay
-    ) : CircularAnimation(animationSpec, betweenAnimation)
+        )
+    ) : CircularAnimation() {
+        override val staggerDelay: Long = 0L
+    }
 }
