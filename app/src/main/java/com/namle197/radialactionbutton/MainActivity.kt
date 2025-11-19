@@ -76,6 +76,7 @@ class MainActivity : ComponentActivity() {
                             },
                             radius = 150f,
                             expanded = expanded,
+                            itemCount = 10,
                             span = CircularSpan.Circle,
                             startAngle = 270f,
                             clockwise = CircularDirection.CounterClockwise,

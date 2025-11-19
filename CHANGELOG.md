@@ -11,11 +11,11 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 - **BREAKING**: `CircularSpan.Circle.create()` is now `CircularSpan.Circle` (data object instead of factory method)
-- **BREAKING**: `CircularMenu` no longer requires `menuItemCount` parameter - it's automatically calculated from content
 - **BREAKING**: `CircularAnimation.betweenAnimation` renamed to `staggerDelay` for better clarity
 - `ExpandAnimation` now has `staggerDelay = 0L` (was 50L) since it doesn't use staggering
 - Improved performance by using `maxOfOrNull` instead of `maxOf` with null fallback
 - Fixed bug in `RadialLayout` where height was constrained using `constrainWidth` instead of `constrainHeight`
+- Parameter order in `CircularMenu` reorganized for better ergonomics (itemCount moved earlier)
 
 ### Performance Improvements
 - Optimized layout calculations by caching max dimensions
@@ -38,29 +38,6 @@ span = CircularSpan.Circle.create()
 **After:**
 ```kotlin
 span = CircularSpan.Circle
-```
-
-### CircularMenu
-**Before:**
-```kotlin
-CircularMenu(
-    menuItemCount = 10,
-    // ... other parameters
-    content = {
-        repeat(10) { /* item */ }
-    }
-)
-```
-
-**After:**
-```kotlin
-CircularMenu(
-    // menuItemCount removed - automatically calculated
-    // ... other parameters
-    content = {
-        repeat(10) { /* item */ }
-    }
-)
 ```
 
 ### CircularAnimation (if using custom animations)

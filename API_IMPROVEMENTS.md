@@ -5,8 +5,8 @@ This document summarizes the optimizations made to the Radial Action Button libr
 ## Key Improvements
 
 ### 1. Simplified API
-- **Removed `menuItemCount` parameter**: The menu now automatically determines the number of items from the content, eliminating redundant parameters and potential bugs from mismatches.
 - **Simplified `CircularSpan.Circle`**: Changed from factory pattern `Circle.create()` to a cleaner data object `Circle`.
+- **Renamed parameter**: `menuItemCount` renamed to `itemCount` for consistency with Compose naming conventions
 
 ### 2. Better Performance
 - **Fixed layout bug**: Corrected height constraint calculation (was using `constrainWidth` twice)
@@ -20,7 +20,7 @@ This document summarizes the optimizations made to the Radial Action Button libr
 
 ### 4. Easier to Read Implementation
 - **Better variable names**: `contentPlaceables` instead of `contentPlaceable`
-- **Extracted logic**: Separated concerns in CircularMenu using SubcomposeLayout
+- **Consistent parameter names**: `itemCount` instead of `menuItemCount`
 - **Comments removed where code is self-documenting**: Reduced noise while keeping important context
 
 ## Code Comparison
@@ -29,7 +29,7 @@ This document summarizes the optimizations made to the Radial Action Button libr
 ```kotlin
 CircularMenu(
     expanded = expanded,
-    menuItemCount = 10,  // Redundant - must match repeat count
+    menuItemCount = 10,  // Verbose parameter name
     span = CircularSpan.Circle.create(),  // Verbose factory pattern
     startAngle = 270f,
     animation = CircularAnimation.StaggerAnimation(
@@ -46,7 +46,7 @@ CircularMenu(
 ```kotlin
 CircularMenu(
     expanded = expanded,
-    // menuItemCount removed - auto-calculated!
+    itemCount = 10,  // Cleaner name following Compose conventions
     span = CircularSpan.Circle,  // Clean and simple
     startAngle = 270f,
     animation = CircularAnimation.StaggerAnimation(
@@ -61,7 +61,7 @@ CircularMenu(
 
 ## Performance Benefits
 
-1. **Fewer bugs**: Automatic item counting prevents count mismatches
+1. **Cleaner API**: Consistent naming with Compose conventions (itemCount)
 2. **Faster layout**: Corrected height constraint and optimized calculations
 3. **Better memory**: Reduced intermediate allocations
 4. **Clearer intent**: Self-documenting code with better names
@@ -89,7 +89,7 @@ This makes the library much easier to use with IDE autocomplete and inline docum
 ## Migration Effort
 
 The changes are minimal and straightforward:
-- Remove `menuItemCount` parameter (1 line)
+- Rename `menuItemCount` to `itemCount` (still required, just cleaner name)
 - Change `CircularSpan.Circle.create()` to `CircularSpan.Circle` (search & replace)
 - Optionally rename `betweenAnimation` to `staggerDelay` if using custom animations
 
